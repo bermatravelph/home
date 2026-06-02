@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BerMa Travel Services — Your Journey Begins Here</title>
+    
+    <!-- Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Exact Brand Color Scheme from image_557af2.jpg */
+        :root {
+            --brand-blue: #003399;       /* Deep Royal Blue */
+            --brand-sky: #00a0e9;        /* Sky Blue Accent */
+            --brand-red: #e60012;        /* Vibrant Contact Red */
+            --brand-red-hover: #c0000e;  
+            --text-dark: #1e293b;        
+            --text-muted: #64748b;       
+            --bg-light: #f8fafc;         
+            --border: #e2e8f0;           
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- STICKY NAVIGATION BAR --- */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        /* Responsive Brand Image Link Integration */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 8px 0;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 48px; /* Balanced desktop presentation size */
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        @media (max-width: 480px) {
+            .logo-img {
+                height: 38px; /* Slightly scaled down for small mobile displays */
+            }
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-tabs a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            padding: 8px 0;
+        }
+
+        .nav-tabs a:hover {
+            color: var(--brand-blue);
+        }
+
+        /* --- HERO AREA (HOME) --- */
+        .hero {
+            padding: 180px 0 120px;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 160, 233, 0.1) 0%, rgba(255, 255, 255, 1) 70%),
+                        linear-gradient(135deg, rgba(0, 51, 153, 0.05) 0%, rgba(255,255,255,1) 100%);
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Diagonal Design Elements Inspired by image_557af2.jpg */
+        .hero-shape {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 10px;
+            background: linear-gradient(to right, var(--brand-sky), var(--brand-blue));
+            transform: skewX(-45deg) translateY(20px);
+            opacity: 0.7;
+        }
+
+        .accreditation-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            border: 1px solid rgba(0, 51, 153, 0.2);
+            color: var(--brand-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 100px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+            color: var(--brand-blue);
+            max-width: 900px;
+            margin: 0 auto 24px;
+        }
+
+        .hero-title span {
+            color: var(--brand-sky);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--brand-red);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 16px 36px;
+            border-radius: 100px; /* Oval button structure inspired by image_557af2.jpg */
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(230, 0, 18, 0.3);
+        }
+
+        .btn:hover { background-color: var(--brand-red-hover); }
+        .btn:active { transform: scale(0.98); }
+
+        .btn-secondary {
+            background-color: var(--brand-blue);
+            box-shadow: 0 4px 14px rgba(0, 51, 153, 0.2);
+            margin-left: 12px;
+        }
+
+        /* --- SERVICES SECTIONS --- */
+        .section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            letter-spacing: -0.03em;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .service-category {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--brand-blue);
+            border-radius: 8px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .service-category.sky-accent { border-top-color: var(--brand-sky); }
+        .service-category.red-accent { border-top-color: var(--brand-red); }
+
+        .category-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .category-item:last-child { border-bottom: none; }
+        
+        .category-item svg {
+            color: var(--brand-sky);
+            flex-shrink: 0;
+        }
+
+        /* --- CONTACT INFORMATION SYSTEM --- */
+        .contact-layout {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comms-bar {
+            background: var(--brand-blue);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 28px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: radial-gradient(circle at 10% 20%, #0044cc 0%, #002266 100%);
+            box-shadow: 0 10px 25px rgba(0, 51, 153, 0.15);
+        }
+
+        @media (min-width: 600px) {
+            .comms-bar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .comms-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.7);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .comms-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            display: flex;
+            gap: 16px;
+            background: var(--bg-light);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .info-card:hover {
+            border-color: rgba(0, 51, 153, 0.2);
+        }
+
+        .info-card.accreditation-card {
+            grid-column: 1 / -1;
+            background: #fff;
+            border: 1px solid rgba(0, 160, 233, 0.25);
+            box-shadow: inset 4px 0 0 var(--brand-sky);
+        }
+
+        .info-icon {
+            color: var(--brand-blue);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .info-text h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .info-text p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* --- ACCREDITED SYSTEM FOOTER --- */
+        .footer {
+            background: #030d22;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 60px 0;
+            font-size: 0.875rem;
+            border-top: 4px solid var(--brand-blue);
+        }
+
+        .footer-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-wrap {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+
+        .footer-brand h4 {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .footer-accreditation {
+            max-width: 500px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DIAGONAL ACCENT LINE -->
+    <div class="hero-shape"></div>
+
+    <!-- HEADER NAVIGATION MODULE -->
+    <header class="header">
+        <div class="container nav-container">
+            <!-- Linked Brand Logo Image Instance referenced from image_556ca2.png -->
+            <a href="#home" class="logo-link">
+                <img src="logo.jpg" alt="BerMa Travel Services Logo" class="logo-img">
+            </a>
+            <ul class="nav-tabs">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- HOME SECTOR -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="accreditation-badge">
+                    <span style="width: 6px; height: 6px; background: var(--brand-sky); border-radius: 50%;"></span>
+                    DOT Accreditation No: DOT-R4A-TTA-00251-2021
+                </div>
+                <h1 class="hero-title">Seamless Global Booking & <span>Reliable Ground Services</span></h1>
+                <p class="hero-desc">From domestic airline ticketing to international visa assistance, BerMa Travel Services manages your entire journey under verified system safety.</p>
+                <div>
+                    <a href="#contact" class="btn">Get In Touch</a>
+                    <a href="#services" class="btn btn-secondary">Explore Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTOR (Integrated from image_557af2.jpg) -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Offered Solutions</h2>
+                </div>
+
+                <div class="services-container">
+                    <!-- Column 1: Travel Booking Services -->
+                    <div class="service-category">
+                        <h3 class="category-name">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                            Travel Booking
+                        </h3>
+                        <ul class="category-list">
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Airline Ticketing – Domestic & International</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Train, Bus, and Ferry Tickets</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Hotel Reservations</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Transport Services</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Tour Packages (Group / Private Tours)</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Cruise Bookings</li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2: Travel Documentation and Assistance -->
+                    <div class="service-category sky-accent">
+                        <h3 class="category-name">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            Documentation
+                        </h3>
+                        <ul class="category-list">
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Visa Processing</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Travel Insurance</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Passport Assistance</li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Ground Services -->
+                    <div class="service-category red-accent">
+                        <h3 class="category-name">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            Ground Services
+                        </h3>
+                        <ul class="category-list">
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Airport Transfers & Shuttles</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Local Tour Guide Services</li>
+                            <li class="category-item"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Tickets to Attractions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT & ACCREDITATION SECTOR (Integrated from image_557af2.jpg) -->
+        <section id="contact" class="section" style="background-color: #fafbfc;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Connect With Our Team</h2>
+                </div>
+
+                <div class="contact-layout">
+                    <!-- Embedded Viber/WhatsApp Primary Communication Hub -->
+                    <div class="comms-bar">
+                        <div>
+                            <div class="comms-label">Viber | WhatsApp Instant Line</div>
+                            <div class="comms-value">0923.529.4557</div>
+                        </div>
+                        <a href="tel:09235294557" class="btn" style="box-shadow: none; background-color: var(--brand-red);">Call Now</a>
+                    </div>
+
+                    <!-- Informational Asset Layout Grid -->
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div class="info-text">
+                                <h4>Email Matrix</h4>
+                                <p>info@bermatravel.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+                            <div class="info-text">
+                                <h4>Facebook Channel</h4>
+                                <p><a href="https://facebook.com/bermatravelph" target="_blank" rel="noopener noreferrer" class="fb-link">BerMa Travel Services</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                            <div class="info-text">
+                                <h4>Corporate Office</h4>
+                                <p>2F Unit N, Volmann Center, Pacita Avenue corner 8th Street, Brgy Pacita 1, City of San Pedro, Laguna, Philippines</p>
+                            </div>
+                        </div>
+
+                        <!-- Formal Structural Verification Box -->
+                        <div class="info-card accreditation-card">
+                            <div class="info-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                            <div class="info-text">
+                                <h4>Department of Tourism Accreditation Registry</h4>
+                                <p style="color: var(--brand-blue); font-weight: 700;">Accreditation No: DOT-R4A-TTA-00251-2021</p>
+                                <p style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Verified Licensed & Accredited Travel & Tour Agency Operator.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ACCREDITED SYSTEM FOOTER -->
+    <footer class="footer">
+        <div class="container footer-wrap">
+            <div class="footer-brand">
+                <h4>BERMA TRAVEL SERVICES</h4>
+                <p>&copy; 2026 BerMa Travel Services. All rights reserved.</p>
+            </div>
+            
+            <!-- Exact Accreditation Parameters from Image -->
+            <div class="footer-accreditation">
+                <strong style="color: #ffffff; display: block; margin-bottom: 4px;">Agency Authorization Structure</strong>
+                Department of Tourism Accredited Travel & Tour Agency<br>
+                Accreditation No: <span style="color: var(--brand-sky); font-weight: 700;">DOT-R4A-TTA-00251-2021</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
