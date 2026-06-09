@@ -267,17 +267,23 @@
             display: flex;
             gap: 16px;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            /* Dynamic setup: scroll-snap disabled on packages to prevent collision with infinite loops */
+            scroll-snap-type: none;
             padding: 4px 4px 16px 4px;
             margin: 0 -20px;
             padding-left: 20px;
             padding-right: 20px;
-            scrollbar-width: none; /* Hide standard track on Firefox */
-            -webkit-overflow-scrolling: touch; /* Fast momentum scroll on iOS */
+            scrollbar-width: none; 
+            -webkit-overflow-scrolling: touch; 
         }
 
         .carousel-container::-webkit-scrollbar {
-            display: none; /* Hide default scroll bar layout */
+            display: none; 
+        }
+
+        /* Keep snapping restricted to text booking part for elegant alignment */
+        .booking-scroller {
+            scroll-snap-type: x mandatory !important;
         }
 
         .swipe-hint {
@@ -342,7 +348,6 @@
         /* --- PACKAGES IMAGE CAROUSELS --- */
         .carousel-card {
             flex: 0 0 82%; 
-            scroll-snap-align: start;
             background: #fff;
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -586,7 +591,7 @@
                 </div>
 
                 <div class="swipe-hint">Swipe to see all options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
-                <div class="carousel-container" style="margin-bottom: 24px;">
+                <div class="carousel-container booking-scroller" style="margin-bottom: 24px;">
                     <div class="service-category">
                         <h3 class="category-name">
                             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
@@ -633,7 +638,7 @@
                 </h3>
                 <div class="swipe-hint">Swipe to explore <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
                 
-                <div class="carousel-container">
+                <div id="international-carousel" class="carousel-container">
                     <div class="carousel-card">
                         <img src="International1.jpg" alt="Heartfelt Korea (Spring)" class="carousel-img" onclick="openLightbox(this)">
                         <div class="carousel-info">
@@ -666,7 +671,7 @@
                 </h3>
                 <div class="swipe-hint">Swipe to explore <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
 
-                <div class="carousel-container">
+                <div id="domestic-carousel" class="carousel-container">
                     <div class="carousel-card">
                         <img src="Domestic1.jpg" alt="Go Batanes Exploration" class="carousel-img" onclick="openLightbox(this)">
                         <div class="carousel-info">
@@ -770,6 +775,52 @@
     </footer>
 
     <script>
+        /* --- INFINITE SCROLL CAROUSEL ENGINE --- */
+        function setupInfiniteCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const originalCards = Array.from(carousel.children);
+            
+            // Duplicate item elements on both sides to serve as invisible transition targets
+            originalCards.forEach(card => {
+                const cloneBefore = card.cloneNode(true);
+                const cloneAfter = card.cloneNode(true);
+                carousel.appendChild(cloneAfter);
+                carousel.insertBefore(cloneBefore, carousel.firstChild);
+            });
+
+            // Calculate precise original single track width boundary parameters
+            const updateScrollBounds = () => {
+                const cardWidth = originalCards[0].offsetWidth + 16; // element width + layout gap spacing
+                const totalOriginalWidth = cardWidth * originalCards.length;
+
+                // Position viewport safely in the center track area initially
+                if (carousel.scrollLeft === 0) {
+                    carousel.scrollLeft = totalOriginalWidth;
+                }
+
+                carousel.addEventListener('scroll', () => {
+                    // Left Boundary Check: Reset view to center loop elements instantly
+                    if (carousel.scrollLeft <= cardWidth) {
+                        carousel.scrollLeft += totalOriginalWidth;
+                    } 
+                    // Right Boundary Check: Reset view to center loop elements instantly
+                    else if (carousel.scrollLeft >= (totalOriginalWidth * 2) - cardWidth) {
+                        carousel.scrollLeft -= totalOriginalWidth;
+                    }
+                });
+            };
+
+            // Trigger initialization cleanly on page generation
+            window.addEventListener('load', updateScrollBounds);
+            window.addEventListener('resize', updateScrollBounds);
+        }
+
+        // Initialize Carousel Tracks
+        setupInfiniteCarousel('international-carousel');
+        setupInfiniteCarousel('domestic-carousel');
+
+
+        /* --- LIGHTBOX MODULE FUNCTIONALITY --- */
         function openLightbox(element) {
             var modal = document.getElementById("lightbox");
             var targetImg = document.getElementById("lightbox-target");
